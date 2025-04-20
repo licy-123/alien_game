@@ -29,15 +29,26 @@ class AlienInvasion:
         """
         while True:
             # 侦听键盘和鼠标事件
-            self._check_event()
+            self._check_events()
+            self.ship.update()
             self._update_screen()
             self.clock.tick(60)
 
-    def _check_event(self):
+    def _check_events(self):
         """响应按键和鼠标事件"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
